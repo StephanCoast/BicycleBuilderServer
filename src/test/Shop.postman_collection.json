@@ -1,0 +1,381 @@
+{
+	"info": {
+		"_postman_id": "ef8cda8e-b613-4d90-8c33-ad4cbc693ee1",
+		"name": "Shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get products",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get product 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get products sorted and paginated",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/products?sort=title&page=0&size=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "title"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search in product description",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/search/inDescription?pattern=Bremen",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"search",
+						"inDescription"
+					],
+					"query": [
+						{
+							"key": "pattern",
+							"value": "Bremen"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get bookings",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCb2IiLCJleHAiOjE1NTA5Mzg0MjQsImlhdCI6MTU1MDA3NDQyNH0.9oLe6jBcFQMWjHMcR5NDy7YmGqVqpptrg2EKfU-163p5Z48Qawk3EhY0i0iX1B4pHJELiT5q0zIVuPyhLcg2NQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/bookings/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookings",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post booking",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCb2IiLCJleHAiOjE1NTA5Mzg0MjQsImlhdCI6MTU1MDA3NDQyNH0.9oLe6jBcFQMWjHMcR5NDy7YmGqVqpptrg2EKfU-163p5Z48Qawk3EhY0i0iX1B4pHJELiT5q0zIVuPyhLcg2NQ",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"bookingPrice\": 300, \"product\": \"http://localhost:8080/products/1\", \"user\": \"http://localhost:8080/users/2\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/bookings/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookings",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get booking 1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCb2IiLCJleHAiOjE1NTA5Mzg0MjQsImlhdCI6MTU1MDA3NDQyNH0.9oLe6jBcFQMWjHMcR5NDy7YmGqVqpptrg2EKfU-163p5Z48Qawk3EhY0i0iX1B4pHJELiT5q0zIVuPyhLcg2NQ"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/bookings/1?projection=inlineProduct",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookings",
+						"1"
+					],
+					"query": [
+						{
+							"key": "projection",
+							"value": "inlineProduct"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user names",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCb2IiLCJleHAiOjE1NTA5Mzg1NzgsImlhdCI6MTU1MDA3NDU3OH0.PIdpOWInLazD5SG5-WWT1oefEChaOJpsVwujvJHLT3aiTfhikAHHMLCXzP66N2fv75ATQJEMF9vMneAqG2jb6g",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register new user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\": \"John\", \"email\": \"john@example.com\", \"passwordHash\": \"secret\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\": \"Bob\", \"passwordHash\": \"secret\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get product image 1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "image/png",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user details",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCb2IiLCJleHAiOjE4NzA4Njg4MzAsImlhdCI6MTU1NTUwODgzMH0.dGnK21e2GABKdb1zP6f4C_vqhhIPW8rCQkMcHu9T8cdgz86CnTMhNzVWDQUfovW44RRJviM4AgbXcrEOldflnA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/Bob",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"Bob"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
