@@ -26,7 +26,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public static final String TOKEN_TYPE = "Bearer ";
     public static final String AUTH_HEADER = "Authorization";
 
-    private AuthenticationManager authManager;
+    private final AuthenticationManager authManager;
 
     public JWTAuthenticationFilter(AuthenticationManager authManager) {
         this.authManager = authManager;
@@ -37,7 +37,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
         try {
             User credentials = new ObjectMapper().readValue(req.getInputStream(), User.class);
-            Authentication token = new UsernamePasswordAuthenticationToken(credentials.getName(), credentials.getPasswortHash());
+            Authentication token = new UsernamePasswordAuthenticationToken(credentials.getName(), credentials.getPasswordHash());
             return authManager.authenticate(token);
         } catch (IOException e) {
             throw new RuntimeException(e);

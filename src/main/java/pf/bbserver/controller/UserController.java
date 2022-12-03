@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 @RestController
-@RequestMapping("/benutzer")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
@@ -32,7 +32,7 @@ public class UserController {
     // registers a new user
     @PostMapping
     public void register(@RequestBody User user) {
-        user.setPasswortHash(bCryptPasswordEncoder.encode(user.getPasswortHash()));
+        user.setPasswordHash(bCryptPasswordEncoder.encode(user.getPasswordHash()));
         userRepo.save(user);
     }
 

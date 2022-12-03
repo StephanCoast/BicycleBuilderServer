@@ -13,8 +13,12 @@ import static java.util.Collections.emptyList;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    @Autowired
+    final
     UserRepo userRepo;
+
+    public CustomUserDetailsService(UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
@@ -22,6 +26,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(name);
         }
-        return new org.springframework.security.core.userdetails.User(user.getName(), user.getPasswortHash(), emptyList());
+        return new org.springframework.security.core.userdetails.User(user.getName(), user.getPasswordHash(), emptyList());
     }
 }
