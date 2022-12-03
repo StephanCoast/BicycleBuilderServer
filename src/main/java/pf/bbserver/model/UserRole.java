@@ -15,7 +15,6 @@ public class UserRole extends EntityWithID {
 	@Length(max = 50) @NotBlank @NotEmpty @NotNull
 	String name;
 
-
 	@Override
 	public String toString() {
 		return String.format(this.getClass().getName() + "[id=%d, name='%s']", id, name);

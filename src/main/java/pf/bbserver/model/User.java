@@ -1,6 +1,5 @@
 package pf.bbserver.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +21,7 @@ public class User extends EntityWithID {
     @Column(length = 100, nullable = false, unique = true)
     String email;
 
-    @Column(name = "password_hash", length = 100, nullable = false)
+    @Column(length = 100, nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     String passwordHash;
 
@@ -39,9 +38,7 @@ public class User extends EntityWithID {
     @JoinColumn
     UserRole userRole;
 
-
-    @OneToMany(mappedBy = "user")
-    @JsonIgnoreProperties({"user"})
+    @OneToMany
     List<Configuration> configurations;
 
     @Override
