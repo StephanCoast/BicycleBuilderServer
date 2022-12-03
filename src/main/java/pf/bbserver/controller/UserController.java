@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pf.bbserver.model.Benutzer;
-import pf.bbserver.repository.BenutzerRepo;
+import pf.bbserver.model.User;
+import pf.bbserver.repository.UserRepo;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,26 +21,26 @@ import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/benutzer")
-public class BenutzerController {
+public class UserController {
 
     @Autowired
-    BenutzerRepo benutzerRepo;
+    UserRepo userRepo;
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     // registers a new user
     @PostMapping
-    public void register(@RequestBody Benutzer benutzer) {
-        benutzer.setPasswortHash(bCryptPasswordEncoder.encode(benutzer.getPasswortHash()));
-        benutzerRepo.save(benutzer);
+    public void register(@RequestBody User user) {
+        user.setPasswortHash(bCryptPasswordEncoder.encode(user.getPasswortHash()));
+        userRepo.save(user);
     }
 
     // provides only the user names
     @GetMapping
     public List<String> getUserNames() {
-        Stream<Benutzer> users = StreamSupport.stream(benutzerRepo.findAll().spliterator(), false);
-        return users.map(Benutzer::getName).sorted().collect(Collectors.toList());
+        Stream<User> users = StreamSupport.stream(userRepo.findAll().spliterator(), false);
+        return users.map(User::getName).sorted().collect(Collectors.toList());
     }
 
     // provides user details for the registered user
@@ -52,9 +52,9 @@ public class BenutzerController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
-        Benutzer benutzer = benutzerRepo.findByName(name);
-        if (benutzer != null) {
-            return ResponseEntity.ok(benutzer);
+        User user = userRepo.findByName(name);
+        if (user != null) {
+            return ResponseEntity.ok(user);
         }
         return ResponseEntity.notFound().build();
     }

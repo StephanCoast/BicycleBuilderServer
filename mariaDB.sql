@@ -1,6 +1,6 @@
 USE `bbdb`;
 
-INSERT INTO `benutzer` (`id`, `name`, `email`, `passwort_hash`, `vorname`, `nachname`, `rolle`) VALUES
+INSERT INTO `user` (`id`, `name`, `email`, `passwort_hash`, `vorname`, `nachname`, `rolle`) VALUES
 (1, 'Alice', 'alice@example.com', '$2a$10$ugcTN6seHHGoWtOw5FOktevmyCk4bZitKljRZ6JtJ6mX9qMfJumNm', 'Alice', 'DSL', 'ADMIN'),
 (2, 'Bob', 'bob@example.com', '$2a$10$ugcTN6seHHGoWtOw5FOktevmyCk4bZitKljRZ6JtJ6mX9qMfJumNm', 'Bob', 'Baumeister', 'BENUTZER');
 

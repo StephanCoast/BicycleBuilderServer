@@ -53,7 +53,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version>
                 <configuration>
-                    <mainClass>pf.bbserver.StarteBbServer</mainClass>
+                    <mainClass>pf.bbserver.RunBbServer</mainClass>
                 </configuration>
             </plugin>
         </plugins>

@@ -7,22 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pf.bbserver.model.Artikel;
-import pf.bbserver.repository.ArtikelRepo;
+import pf.bbserver.model.Article;
+import pf.bbserver.repository.ArticleRepo;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URLConnection;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/artikel/{id}")
-public class ArtikelController {
+@RequestMapping("/articles/{id}")
+public class ArticleController {
 
     @Autowired
-    ArtikelRepo artikelRepo;
+    ArticleRepo articleRepo;
 
 //    @GetMapping(produces = {MediaType.APPLICATION_OCTET_STREAM_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
 //    public ResponseEntity<byte[]> getProductImage(@PathVariable("id") Integer id) {
@@ -41,7 +36,7 @@ public class ArtikelController {
 
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity getProduct(@PathVariable("id") Integer id) {
-        Optional<Artikel> product = artikelRepo.findById(id);
+        Optional<Article> product = articleRepo.findById(id);
         if (product.isPresent()) {
             return ResponseEntity.ok(product);
         }

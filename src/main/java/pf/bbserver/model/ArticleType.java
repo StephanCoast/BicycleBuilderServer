@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @javax.persistence.Entity
 @Getter @Setter
-public class Artikeltyp extends EntityMitID {
+public class ArticleType extends EntityWithID {
 
 	@Length(max = 50) @NotBlank @NotEmpty @NotNull
 	String name;

@@ -11,7 +11,7 @@ import java.util.List;
 
 @javax.persistence.Entity
 @Getter @Setter
-public class Konfiguration extends EntityMitID {
+public class Configuration extends EntityWithID {
 
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Berlin")
@@ -37,11 +37,11 @@ public class Konfiguration extends EntityMitID {
 
     @ManyToOne
     @JoinColumn
-    Benutzer benutzer;
+    User user;
 
     @OneToOne
     @JoinColumn
-    Auftrag auftrag;
+    OrderClass orderClass;
 
     @ManyToOne
     @JoinColumn
@@ -98,6 +98,6 @@ public class Konfiguration extends EntityMitID {
 
     @Override
     public String toString() {
-        return String.format(this.getClass().getName() + "[datum='%s', id=%d, benutzer='%s']", datum, id, benutzer.name);
+        return String.format(this.getClass().getName() + "[datum='%s', id=%d, benutzer='%s']", datum, id, user.name);
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import pf.bbserver.model.Benutzer;
+import pf.bbserver.model.User;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +36,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
         try {
-            Benutzer credentials = new ObjectMapper().readValue(req.getInputStream(), Benutzer.class);
+            User credentials = new ObjectMapper().readValue(req.getInputStream(), User.class);
             Authentication token = new UsernamePasswordAuthenticationToken(credentials.getName(), credentials.getPasswortHash());
             return authManager.authenticate(token);
         } catch (IOException e) {

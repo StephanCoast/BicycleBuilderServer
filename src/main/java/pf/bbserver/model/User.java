@@ -15,7 +15,7 @@ import java.util.List;
 @javax.persistence.Entity
 @Getter
 @Setter
-public class Benutzer extends EntityMitID {
+public class User extends EntityWithID {
 
     @Column(length = 20, nullable = false, unique = true)
     String name;
@@ -43,9 +43,9 @@ public class Benutzer extends EntityMitID {
     Rolle rolle;
 
 
-    @OneToMany(mappedBy = "benutzer")
+    @OneToMany(mappedBy = "user")
     @JsonIgnoreProperties({"user"})
-    List<Konfiguration> configurations;
+    List<Configuration> configurations;
 
     @Override
     public String toString() {

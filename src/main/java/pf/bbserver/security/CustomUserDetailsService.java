@@ -5,8 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pf.bbserver.model.Benutzer;
-import pf.bbserver.repository.BenutzerRepo;
+import pf.bbserver.model.User;
+import pf.bbserver.repository.UserRepo;
 
 import static java.util.Collections.emptyList;
 
@@ -14,14 +14,14 @@ import static java.util.Collections.emptyList;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    BenutzerRepo benutzerRepo;
+    UserRepo userRepo;
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        Benutzer benutzer = benutzerRepo.findByName(name);
-        if (benutzer == null) {
+        User user = userRepo.findByName(name);
+        if (user == null) {
             throw new UsernameNotFoundException(name);
         }
-        return new org.springframework.security.core.userdetails.User(benutzer.getName(), benutzer.getPasswortHash(), emptyList());
+        return new org.springframework.security.core.userdetails.User(user.getName(), user.getPasswortHash(), emptyList());
     }
 }

@@ -1,12 +1,12 @@
 package pf.bbserver.model.projection;
 
 import org.springframework.data.rest.core.config.Projection;
-import pf.bbserver.model.Konfiguration;
-import pf.bbserver.model.Artikel;
+import pf.bbserver.model.Configuration;
+import pf.bbserver.model.Article;
 
-@Projection(name = "KonfigurationAnzeigen", types = {Konfiguration.class})
+@Projection(name = "KonfigurationAnzeigen", types = {Configuration.class})
 public interface KonfigurationAnzeigen {
     String getDatum();
     float getGesamtpreis();
-    Artikel[] getArtikelliste();
+    Article[] getArtikelliste();
 }

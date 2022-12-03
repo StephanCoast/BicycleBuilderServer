@@ -11,7 +11,7 @@ import java.util.List;
 @javax.persistence.Entity
 @Getter
 @Setter
-public class Kunde extends EntityMitID {
+public class Customer extends EntityWithID {
 
     @Column(length = 100, nullable = false, unique = true)
     String email;
@@ -36,7 +36,7 @@ public class Kunde extends EntityMitID {
 
     @Column
     @OneToMany
-    List<Auftrag> auftraege;
+    List<OrderClass> auftraege;
 
     @Override
     public String toString() {

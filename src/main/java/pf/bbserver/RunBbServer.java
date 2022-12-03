@@ -6,10 +6,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
-public class StarteBbServer {
+public class RunBbServer {
 
     public static void main(String[] args) {
-        SpringApplication.run(StarteBbServer.class);
+        SpringApplication.run(RunBbServer.class);
     }
 
     @Bean

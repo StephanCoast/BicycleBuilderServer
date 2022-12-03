@@ -1,15 +1,11 @@
 package pf.bbserver.repository;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
-import pf.bbserver.model.Artikel;
-
-import java.util.List;
+import pf.bbserver.model.Article;
 
 @Repository
-public interface ArtikelRepo extends PagingAndSortingRepository<Artikel, Integer> {
+public interface ArticleRepo extends PagingAndSortingRepository<Article, Integer> {
 
     // Query methods are documented at https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods
 

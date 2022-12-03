@@ -10,13 +10,23 @@ import javax.validation.constraints.NotNull;
 
 
 
-@MappedSuperclass @Getter @Setter
-public abstract class Artikel extends EntityMitID {
+@javax.persistence.Entity
+@Getter @Setter
+public abstract class Article extends EntityWithID {
 
 
 	@NotBlank @NotEmpty @NotNull
-	@Column(length = 50)
+	@Column(length = 100)
 	String name;
+
+	@NotNull
+	@ManyToOne
+	@JoinColumn
+	ArticleType articleType;
+
+	@NotBlank @NotEmpty @NotNull
+	@Column(length = 10)
+	String producer;
 
 	@Column
 	@NotNull
@@ -26,14 +36,13 @@ public abstract class Artikel extends EntityMitID {
 	@Column(length = 10)
 	String farbe;
 
-	@NotNull
-	@ManyToOne
-	@JoinColumn
-	Artikeltyp artikeltyp;
+
+
+
 
 
 	@Override
 	public String toString() {
-		return String.format(this.getClass().getName() + "[id=%d, name='%s', typ='%s', preis='%s', farbe='%s']", id, name, artikeltyp, preis, farbe);
+		return String.format(this.getClass().getName() + "[id=%d, name='%s', typ='%s', preis='%s', farbe='%s']", id, name, articleType, preis, farbe);
 	}
 }

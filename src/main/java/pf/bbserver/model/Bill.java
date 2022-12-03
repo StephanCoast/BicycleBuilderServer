@@ -3,21 +3,14 @@ package pf.bbserver.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @javax.persistence.Entity
 @Getter @Setter
-public class Auftrag extends EntityMitID {
+public class Bill extends EntityWithID {
 
 	@OneToOne
-	Auftrag auftrag;
-
-	@OneToOne
-	Rechnung rechnung;
-
-	@ManyToOne
-	Kunde kunde;
+    OrderClass orderClass;
 
 	@Override
 	public String toString() {
