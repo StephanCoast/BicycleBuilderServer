@@ -1,20 +1,15 @@
 package pf.bbserver.repository;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import pf.bbserver.model.Article;
 
-@Repository
-public interface ArticleRepo extends PagingAndSortingRepository<Article, Integer> {
+public interface ArticleRepo extends JpaRepository<Article, Long> {
 
-    // Query methods are documented at https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods
+    // von JpaRepository geerbte Methoden:
+    // save(), findOne(), findById(), findAll(), count(), delete(), deleteById()
 
-//    @RestResource(path = "byName")
-//    List<Artikel> findByName(@Param(value = "name") String name);
+    List<Article> findByDescriptionContaining(String title);
 
-//    @RestResource(path = "inDescription")
-//    List<Artikel> findByDescriptionContainingIgnoreCase(@Param(value = "pattern") String pattern);
-//
-//    @RestResource(path = "maxPrice")
-//    List<Artikel> findByPriceLessThanEqual(@Param(value = "price") Integer price);
 }
