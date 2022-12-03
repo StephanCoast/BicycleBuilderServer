@@ -13,27 +13,21 @@ import java.util.List;
 @Getter @Setter
 public class Configuration extends EntityWithID {
 
+    @NotNull
+    @ManyToOne
+    @JoinColumn
+    ConfigurationStatus status;
+
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Berlin")
-    Date datum = new Date();
+    Date dateCreated = new Date();
 
-    enum Status {
-        ENTWURF,
-        ABGESCHLOSSEN,
-        EINKAUF,
-        STORNO
-    }
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column
-    Status status;
-
-    @NotNull
-    @Column
-    float gesamtpreis;
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Berlin")
+    Date dateLastChanged = new Date();
 
     @Column
-    boolean schreibschutz;
+    boolean writeAccess;
 
     @ManyToOne
     @JoinColumn
@@ -43,61 +37,12 @@ public class Configuration extends EntityWithID {
     @JoinColumn
     OrderClass orderClass;
 
-    @ManyToOne
-    @JoinColumn
-    Rahmen rahmen;
-
-    @ManyToOne
-    @JoinColumn
-    Reifen reifen;
-
-    @ManyToOne
-    @JoinColumn
-    Laufrad laufrad;
-
-    @ManyToOne
-    @JoinColumn
-    Bremse bremse;
-
-    @ManyToOne
-    @JoinColumn
-    Schaltung schaltung;
-
-    @ManyToOne
-    @JoinColumn
-    Innenlager innenlager;
-
-    @ManyToOne
-    @JoinColumn
-    Kurbel kurbel;
-
-    @ManyToOne
-    @JoinColumn
-    Pedale pedale;
-
-
-    @ManyToOne
-    @JoinColumn
-    Gabel gabel;
-
-    @ManyToOne
-    @JoinColumn
-    Steuersatz steuersatz;
-
-    @ManyToOne
-    @JoinColumn
-    Vorbau vorbau;
-
-    @ManyToOne
-    @JoinColumn
-    Lenker lenker;
-
     @ManyToMany
     @JoinColumn
-    List<Zubehoer> zubehoer;
+    List<Article> articles;
 
     @Override
     public String toString() {
-        return String.format(this.getClass().getName() + "[datum='%s', id=%d, benutzer='%s']", datum, id, user.name);
+        return String.format(this.getClass().getName() + "[datum='%s', id=%d, benutzer='%s']", dateLastChanged, id, user.name);
     }
 }

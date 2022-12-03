@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 @javax.persistence.Entity
 @Getter @Setter
-public abstract class Article extends EntityWithID {
+public class Article extends EntityWithID {
 
 
 	@NotBlank @NotEmpty @NotNull
@@ -25,16 +25,28 @@ public abstract class Article extends EntityWithID {
 	ArticleType articleType;
 
 	@NotBlank @NotEmpty @NotNull
-	@Column(length = 10)
+	@Column(length = 100)
 	String producer;
+
+	@Column(length = 200)
+	String description;
+
+	@Column(length = 100)
+	String characteristic;
+
+	@Column
+	int value1;
+
+	@Column
+	int value2;
 
 	@Column
 	@NotNull
-	float preis;
+	float price;
 
 	@NotBlank @NotEmpty @NotNull
 	@Column(length = 10)
-	String farbe;
+	String hexColor;
 
 
 
@@ -43,6 +55,6 @@ public abstract class Article extends EntityWithID {
 
 	@Override
 	public String toString() {
-		return String.format(this.getClass().getName() + "[id=%d, name='%s', typ='%s', preis='%s', farbe='%s']", id, name, articleType, preis, farbe);
+		return String.format(this.getClass().getName() + "[id=%d, name='%s', typ='%s', preis='%s', farbe='%s']", id, name, articleType, price, hexColor);
 	}
 }

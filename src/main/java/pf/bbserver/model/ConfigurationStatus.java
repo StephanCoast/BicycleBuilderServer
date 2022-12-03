@@ -4,21 +4,17 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@Entity
+@javax.persistence.Entity
 @Getter @Setter
-public class Datentyp extends EntityMitID {
+public class ConfigurationStatus extends EntityWithID {
 
-	@NotBlank @NotEmpty @NotNull
-	@Column(length = 50)
+	@Length(max = 50) @NotBlank @NotEmpty @NotNull
 	String name;
+
 
 	@Override
 	public String toString() {

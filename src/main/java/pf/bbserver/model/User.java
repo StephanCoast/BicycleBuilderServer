@@ -5,10 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -23,24 +22,22 @@ public class User extends EntityWithID {
     @Column(length = 100, nullable = false, unique = true)
     String email;
 
-    @Column(name = "passwort_hash", length = 100, nullable = false)
+    @Column(name = "password_hash", length = 100, nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    String passwortHash;
+    String passwordHash;
 
+    @NotNull @NotBlank @NotEmpty
     @Column(length = 50)
-    String vorname;
+    String forename;
 
+    @NotNull @NotBlank @NotEmpty
     @Column(length = 50)
-    String nachname;
+    String lastname;
 
-    enum Rolle {
-        ADMIN,
-        BERATER,
-    }
     @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column
-    Rolle rolle;
+    @ManyToOne
+    @JoinColumn
+    UserRole userRole;
 
 
     @OneToMany(mappedBy = "user")
