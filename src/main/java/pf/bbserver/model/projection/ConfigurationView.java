@@ -4,8 +4,8 @@ import org.springframework.data.rest.core.config.Projection;
 import pf.bbserver.model.Configuration;
 import pf.bbserver.model.Article;
 
-@Projection(name = "KonfigurationAnzeigen", types = {Configuration.class})
-public interface KonfigurationAnzeigen {
+@Projection(types = {Configuration.class})
+public interface ConfigurationView {
     String getDatum();
     float getGesamtpreis();
     Article[] getArtikelliste();

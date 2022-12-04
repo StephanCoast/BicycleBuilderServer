@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import pf.bbserver.model.Article;
 import pf.bbserver.repository.ArticleRepo;
 
-
-@CrossOrigin(origins = "http://localhost:8081")
+//@RequestMapping("/api")
+//@CrossOrigin(origins = "http://localhost:8081")
 @RestController
-@RequestMapping("/api")
+
 
 public class ArticleController {
     final
