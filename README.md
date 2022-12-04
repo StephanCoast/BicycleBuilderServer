@@ -1,6 +1,6 @@
-# BicycleBuilder - Client
-Access the REST-API of your BicycleBuilder - Server with multiple clients
-and customize the bikes of your portfolio.
+# BicycleBuilder - Server
+Run the REST-API of your BicycleBuilder - Server and access it with multiple clients
+in your bike shops. Customize the bikes of your portfolio.
 
 
 ## Semesterprojekt im Kurs Patterns & Frameworks
