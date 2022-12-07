@@ -3,8 +3,8 @@ INSERT INTO `USER_ROLE` (`ID`, `NAME`) VALUES
 (2, 'CONSULTANT');
 
 INSERT INTO `USER` (`ID`, `NAME`, `EMAIL`, `PASSWORD_HASH`, `FORENAME`, `LASTNAME`, `USER_ROLE_ID`) VALUES
-(1, 'Alice', 'alice@example.com', '$2a$10$ugcTN6seHHGoWtOw5FOktevmyCk4bZitKljRZ6JtJ6mX9qMfJumNm', 'Alice', 'DSL', 1),
-(2, 'Bob', 'bob@example.com', '$2a$10$ugcTN6seHHGoWtOw5FOktevmyCk4bZitKljRZ6JtJ6mX9qMfJumNm', 'Bob', 'Baumeister', 2);
+(1, 'Admin123', 'admin123@bbuilder.com', '$2a$10$ugcTN6seHHGoWtOw5FOktevmyCk4bZitKljRZ6JtJ6mX9qMfJumNm', 'Anna', 'Admin', 1),
+(2, 'Biker123', 'biker123@bbuilder.com', '$2a$10$ugcTN6seHHGoWtOw5FOktevmyCk4bZitKljRZ6JtJ6mX9qMfJumNm', 'Leo', 'Lenker', 2);
 
 INSERT INTO `ARTICLE_TYPE` (`ID`, `NAME`) VALUES
 (1, 'Rahmen'),
