@@ -1,0 +1,11 @@
+### Send POST request with json body
+POST http://localhost:8080/configurations
+Content-Type: application/json
+
+{
+  "dateLastChanged": "2022-12-09",
+  "dateCreated": "2022-12-01",
+  "writeAccess": "true",
+  "status": 1,
+  "user": 1
+}

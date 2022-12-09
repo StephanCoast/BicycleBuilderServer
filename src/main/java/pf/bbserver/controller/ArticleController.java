@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import pf.bbserver.model.Article;
 import pf.bbserver.repository.ArticleRepo;
 
-//@RequestMapping("/api")
+
 //@CrossOrigin(origins = "http://localhost:8081")
+//@RequestMapping("/api")
 @RestController
-
-
 public class ArticleController {
     final
     ArticleRepo articleRepo;
@@ -46,10 +45,10 @@ public class ArticleController {
 
     @GetMapping("/articles/{id}")
     public ResponseEntity<Article> getArticleById(@PathVariable("id") long id) {
-        Optional<Article> articleData = articleRepo.findById(id);
+        Optional<Article> article = articleRepo.findById(id);
 
-        if (articleData.isPresent()) {
-            return new ResponseEntity<>(articleData.get(), HttpStatus.OK);
+        if (article.isPresent()) {
+            return new ResponseEntity<>(article.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
