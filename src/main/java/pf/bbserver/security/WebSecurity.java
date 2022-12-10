@@ -27,13 +27,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
 
-
                 // TODO Remove before production - otherwise everyone can get user data
-                .antMatchers(HttpMethod.GET, "/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/**").permitAll()
-                .antMatchers(HttpMethod.PUT, "/**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/**").permitAll()
-
+                .antMatchers(HttpMethod.GET, "/articles").permitAll()
+                .antMatchers(HttpMethod.GET, "/configurations").permitAll()
+                .antMatchers(HttpMethod.POST, "/configurations").permitAll()
 
                 // if authenticated then allow any request
                 .anyRequest().authenticated()

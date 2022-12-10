@@ -13,5 +13,5 @@ public abstract class EntityWithID {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    Integer id;
 }
