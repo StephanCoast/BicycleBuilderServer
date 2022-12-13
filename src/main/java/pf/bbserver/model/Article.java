@@ -50,9 +50,6 @@ public class Article extends EntityWithID {
 
 
 
-
-
-
 	@Override
 	public String toString() {
 		return String.format(this.getClass().getName() + "[id=%d, name='%s', typ='%s', preis='%s', farbe='%s']", id, name, articleType, price, hexColor);

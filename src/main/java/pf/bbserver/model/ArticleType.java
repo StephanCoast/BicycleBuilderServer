@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -14,7 +15,6 @@ public class ArticleType extends EntityWithID {
 
 	@Length(max = 50) @NotBlank @NotEmpty @NotNull
 	String name;
-
 
 	@Override
 	public String toString() {
