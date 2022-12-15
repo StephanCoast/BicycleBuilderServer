@@ -14,15 +14,13 @@ import javax.validation.constraints.NotNull;
 @Getter @Setter
 public class Article extends EntityWithID {
 
+	@NotEmpty @NotBlank @NotNull
+	String type;
 
 	@NotBlank @NotEmpty @NotNull
 	@Column(length = 100)
 	String name;
 
-	@NotNull
-	@ManyToOne
-	@JoinColumn
-	ArticleType articleType;
 
 	@NotBlank @NotEmpty @NotNull
 	@Column(length = 100)
@@ -52,6 +50,6 @@ public class Article extends EntityWithID {
 
 	@Override
 	public String toString() {
-		return String.format(this.getClass().getName() + "[id=%d, name='%s', typ='%s', preis='%s', farbe='%s']", id, name, articleType, price, hexColor);
+		return String.format(this.getClass().getName() + "[id=%d, name='%s', typ='%s', preis='%s', farbe='%s']", id, name, type, price, hexColor);
 	}
 }

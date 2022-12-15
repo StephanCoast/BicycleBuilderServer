@@ -15,6 +15,9 @@ import java.util.List;
 @Setter
 public class User extends EntityWithID {
 
+    @NotEmpty @NotBlank @NotNull
+    String role;
+
     @Column(length = 20, nullable = false, unique = true)
     String name;
 
@@ -32,11 +35,6 @@ public class User extends EntityWithID {
     @NotNull @NotBlank @NotEmpty
     @Column(length = 50)
     String lastname;
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn
-    UserRole userRole;
 
     @OneToMany
     List<Configuration> configurations;

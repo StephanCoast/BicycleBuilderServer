@@ -26,6 +26,7 @@ public class OrderClass extends EntityWithID {
 	@OneToOne
 	Bill bill;
 
+	@NotNull
 	@Temporal(TemporalType.DATE)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Berlin")
 	Date dateCreated = new Date();

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
@@ -14,23 +15,23 @@ import java.util.List;
 @Getter @Setter
 public class Configuration extends EntityWithID {
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn
-    ConfigurationStatus status;
 
-    @NotNull @NotBlank
+    @NotEmpty @NotBlank @NotNull
+    String status;
+
+    @NotNull
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Berlin")
     Date dateCreated = new Date();
-    @NotNull @NotBlank
+
+    @NotNull
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Berlin")
     Date dateLastChanged = new Date();
 
     @NotNull
     @Column
-    boolean writeAccess;
+    boolean writeAccess = true;
 
     @ManyToOne @NotNull
     @JoinColumn
