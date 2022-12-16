@@ -1,5 +1,6 @@
 package pf.bbserver.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,7 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
+import java.util.List;
 
 
 @javax.persistence.Entity
@@ -46,7 +47,9 @@ public class Article extends EntityWithID {
 	@Column(length = 10)
 	String hexColor;
 
-
+//	@ManyToMany(mappedBy = "articles") // give Ownership of relation to Configuration
+//	@JsonIgnore
+//	List<Article> articles;
 
 	@Override
 	public String toString() {

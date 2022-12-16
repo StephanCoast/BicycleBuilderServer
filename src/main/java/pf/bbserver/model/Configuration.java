@@ -9,7 +9,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import static javax.persistence.CascadeType.*;
 
 @javax.persistence.Entity
 @Getter @Setter
@@ -41,9 +45,10 @@ public class Configuration extends EntityWithID {
     @JoinColumn
     OrderClass orderClass;
 
+    // Set is more efficient than list
     @ManyToMany
-    @JoinColumn
-    List<Article> articles;
+    @JoinTable
+    Set<Article> articles = new HashSet<>();
 
     @Override
     public String toString() {
