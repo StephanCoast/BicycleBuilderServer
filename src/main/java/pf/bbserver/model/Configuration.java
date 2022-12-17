@@ -45,12 +45,12 @@ public class Configuration extends EntityWithID {
     @JoinColumn
     OrderClass orderClass;
 
-    // Set is more efficient than list
+    // Set is more efficient than list, Foreign Key On Delete Cascade not the default setting
     @ManyToMany
     @JoinTable(
             name = "CONFIGURATION_ARTICLES",
             joinColumns = @JoinColumn(name = "CONFIGURATION_ID", foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key (CONFIGURATION_ID) references CONFIGURATION on delete CASCADE")),
-            inverseJoinColumns = @JoinColumn(name = "ARTICLE_ID", foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key (ARTICLES_ID) references ARTICLE on delete CASCADE"))
+            inverseJoinColumns = @JoinColumn(name = "ARTICLE_ID", foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key (ARTICLE_ID) references ARTICLE on delete CASCADE"))
     )
     Set<Article> articles = new java.util.LinkedHashSet<>();
 

@@ -53,7 +53,7 @@ public class ConfigurationController {
     }
 
     @PostMapping("/configurations")
-    public ResponseEntity<Configuration> createTutorial(@RequestBody Configuration configuration) {
+    public ResponseEntity<Configuration> createConfiguration(@RequestBody Configuration configuration) {
         try {
             Configuration newConfig = configurationRepo.save(configuration);
 
@@ -67,22 +67,22 @@ public class ConfigurationController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-//
-//    @PutMapping("/tutorials/{id}")
-//    public ResponseEntity<Tutorial> updateTutorial(@PathVariable("id") long id, @RequestBody Tutorial tutorial) {
-//        Optional<Tutorial> tutorialData = tutorialRepository.findById(id);
-//
-//        if (tutorialData.isPresent()) {
-//            Tutorial _tutorial = tutorialData.get();
-//            _tutorial.setTitle(tutorial.getTitle());
-//            _tutorial.setDescription(tutorial.getDescription());
-//            _tutorial.setPublished(tutorial.isPublished());
-//            return new ResponseEntity<>(tutorialRepository.save(_tutorial), HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
-//
+
+    @PutMapping("/configurations/{id}")
+    public ResponseEntity<Configuration> updateConfiguration(@PathVariable("id") int id, @RequestBody Configuration configuration) {
+        Optional<Configuration> configurationData = configurationRepo.findById(id);
+
+        if (configurationData.isPresent()) {
+//            Configuration _configuration = configurationData.get();
+//            _configuration.setTitle(tutorial.getTitle());
+//            _configuration.setDescription(tutorial.getDescription());
+//            _configuration.setPublished(tutorial.isPublished());
+            return new ResponseEntity<>(configurationRepo.save(configuration), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @DeleteMapping("/configurations/{id}")
     public ResponseEntity<HttpStatus> deleteConfiguration(@PathVariable("id") int id) {
         try {
