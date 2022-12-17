@@ -47,8 +47,12 @@ public class Configuration extends EntityWithID {
 
     // Set is more efficient than list
     @ManyToMany
-    @JoinTable
-    Set<Article> articles = new HashSet<>();
+    @JoinTable(
+            name = "CONFIGURATION_ARTICLES",
+            joinColumns = @JoinColumn(name = "CONFIGURATION_ID", foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key (CONFIGURATION_ID) references CONFIGURATION on delete CASCADE")),
+            inverseJoinColumns = @JoinColumn(name = "ARTICLE_ID", foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key (ARTICLES_ID) references ARTICLE on delete CASCADE"))
+    )
+    Set<Article> articles = new java.util.LinkedHashSet<>();
 
     @Override
     public String toString() {

@@ -13,6 +13,7 @@ public interface ConfigurationRepo extends CrudRepository<Configuration, Integer
     // von CrudRepository geerbte Methoden:
     // save(), findOne(), findById(), findAll(), count(), delete(), deleteById()
 
+
     List<Configuration> findByDateLastChanged(Date dateLastChanged);
 
 }
