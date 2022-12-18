@@ -44,10 +44,6 @@ public class Article extends EntityWithID {
 	@Column(length = 10)
 	String hexColor;
 
-//	@ManyToMany(mappedBy = "articles") // give Ownership of relation to Configuration
-//	@JsonIgnore
-//	List<Article> articles;
-
 	@Override
 	public String toString() {
 		return String.format(this.getClass().getName() + "[id=%d, name='%s', typ='%s', preis='%s', farbe='%s']", id, name, type, price, hexColor);
