@@ -30,8 +30,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/articles/**").permitAll()
 
                 // TODO Remove before production - otherwise everyone can access data
-                .antMatchers(HttpMethod.GET, "/**").permitAll()
-                .antMatchers(HttpMethod.PUT, "/**").permitAll()
+//                .antMatchers(HttpMethod.GET, "/**").permitAll()
+//                .antMatchers(HttpMethod.PUT, "/**").permitAll()
 
 
                 // if authenticated then allow any request
