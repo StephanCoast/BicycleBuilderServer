@@ -3,11 +3,9 @@ package pf.bbserver.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 import java.util.Date;
 
 @javax.persistence.Entity
@@ -17,10 +15,16 @@ public class Bill extends EntityWithID {
 	@OneToOne
     OrderClass orderClass;
 
-	@NotNull
-	@Temporal(TemporalType.DATE)
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Berlin")
-	Date dateCreated = new Date();
+	@Column(nullable = false)
+	Date dateCreated;
+
+	@PrePersist
+	protected void onCreate() {
+		dateCreated = new Date();
+	}
 
 
 	@Override
