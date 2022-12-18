@@ -1,8 +1,11 @@
 package pf.bbserver.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -23,15 +26,28 @@ public class Configuration extends EntityWithID {
     @NotEmpty @NotBlank @NotNull
     String status;
 
-    @NotNull
-    @Temporal(TemporalType.DATE)
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Berlin")
-    Date dateCreated = new Date();
+    @Column(nullable = false)
+    Date dateCreated;
 
-    @NotNull
-    @Temporal(TemporalType.DATE)
+    @PrePersist
+    protected void onCreate() {
+        dateCreated = dateLastChanged = new Date();
+    }
+
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Berlin")
-    Date dateLastChanged = new Date();
+    @Column(nullable = false)
+    Date dateLastChanged;
+
+    @PreUpdate
+    protected void onUpdate() {
+        dateLastChanged = new Date();
+    }
+
 
     @NotNull
     @Column
@@ -46,13 +62,18 @@ public class Configuration extends EntityWithID {
     OrderClass orderClass;
 
     // Set is more efficient than list, Foreign Key On Delete Cascade not the default setting
+    @Setter(AccessLevel.NONE)
     @ManyToMany
     @JoinTable(
             name = "CONFIGURATION_ARTICLES",
-            joinColumns = @JoinColumn(name = "CONFIGURATION_ID", foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key (CONFIGURATION_ID) references CONFIGURATION on delete CASCADE")),
-            inverseJoinColumns = @JoinColumn(name = "ARTICLE_ID", foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key (ARTICLE_ID) references ARTICLE on delete CASCADE"))
+            joinColumns = @JoinColumn(name = "CONFIGURATION_ID", foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key (CONFIGURATION_ID) references CONFIGURATION on delete CASCADE"), referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "ARTICLE_ID", foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key (ARTICLE_ID) references ARTICLE on delete CASCADE"), referencedColumnName = "id")
     )
     Set<Article> articles = new java.util.LinkedHashSet<>();
+
+    public void setDateLastChanged(Date dateLastChanged) {
+        this.dateLastChanged = dateLastChanged;
+    }
 
     @Override
     public String toString() {
