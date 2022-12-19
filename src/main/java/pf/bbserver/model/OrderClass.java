@@ -1,5 +1,6 @@
 package pf.bbserver.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +16,8 @@ public class OrderClass extends EntityWithID {
 
 	@NotNull
 	@OneToOne
-    Configuration configuration;
+	@JoinColumn
+	Configuration configuration;
 
 	@ManyToOne @NotNull
 	Customer customer;

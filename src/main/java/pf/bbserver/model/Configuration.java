@@ -1,5 +1,6 @@
 package pf.bbserver.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -56,10 +57,6 @@ public class Configuration extends EntityWithID {
     @ManyToOne @NotNull
     @JoinColumn
     User user;
-
-    @OneToOne
-    @JoinColumn
-    OrderClass orderClass;
 
     // Set is more efficient than list, Foreign Key On Delete Cascade not the default setting
     @Setter(AccessLevel.NONE)

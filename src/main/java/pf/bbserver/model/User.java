@@ -36,9 +36,6 @@ public class User extends EntityWithID {
     @Column(length = 50)
     String lastname;
 
-    @OneToMany
-    List<Configuration> configurations;
-
     @Override
     public String toString() {
         return String.format(this.getClass().getName() + "[id=%d, name='%s']", id, name);
