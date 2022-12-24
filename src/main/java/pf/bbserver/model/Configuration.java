@@ -4,11 +4,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.Set;
 
 @javax.persistence.Entity
@@ -22,30 +23,23 @@ public class Configuration extends EntityWithID {
     @NotEmpty @NotBlank @NotNull
     String status;
 
-    @Temporal(TemporalType.DATE)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm", timezone = "Europe/Berlin")
-    @Column(nullable = false)
-    Date dateCreated;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Europe/Berlin")
+    @Column(nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    Timestamp timestampCreated;
 
-    @PrePersist
-    protected void onCreate() {
-        dateCreated = dateLastChanged = new Date();
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Europe/Berlin")
+    @Column(nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    Timestamp timestampLastTouched;
+
+    String writeAccess;
+
+    public String getWriteAccess() {
+        return writeAccess;
     }
 
-    @Temporal(TemporalType.DATE)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm", timezone = "Europe/Berlin")
-    @Column(nullable = false)
-    Date dateLastChanged;
-
-    @PreUpdate
-    protected void onUpdate() {
-        dateLastChanged = new Date();
+    public void setWriteAccess(String writeAccess) {
+        this.writeAccess = writeAccess;
     }
-
-
-    @NotNull
-    @Column
-    boolean writeAccess = true;
 
     @ManyToOne @NotNull
     @JoinColumn
@@ -63,6 +57,7 @@ public class Configuration extends EntityWithID {
 
     @Override
     public String toString() {
-        return String.format(this.getClass().getName() + "[datum='%s', id=%d, benutzer='%s']", dateLastChanged, id, user.name);
+        return String.format(this.getClass().getName() + "[created='%s', id=%d, benutzer='%s']", timestampCreated, id, user.name);
     }
+
 }

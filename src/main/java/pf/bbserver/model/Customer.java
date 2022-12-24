@@ -1,15 +1,13 @@
 package pf.bbserver.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+
 
 
 @javax.persistence.Entity
@@ -17,9 +15,9 @@ import java.util.Set;
 @Setter
 public class Customer extends EntityWithID {
 
-    @JsonManagedReference(value="order-customer")
-    @OneToMany(mappedBy = "customer")
-    Set<OrderClass> orders = new java.util.LinkedHashSet<>();
+//    @JsonManagedReference(value="order-customer")
+//    @OneToMany(mappedBy = "customer")
+//    Set<OrderClass> orders = new java.util.LinkedHashSet<>();
 
     @Column(length = 100, nullable = false, unique = true)
     String email;

@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @javax.persistence.Entity
 @Getter @Setter
@@ -19,15 +19,9 @@ public class Bill extends EntityWithID {
 	@JoinColumn
 	OrderClass order;
 
-	@Temporal(TemporalType.DATE)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Berlin")
-	@Column(nullable = false)
-	Date dateCreated;
-
-	@PrePersist
-	protected void onCreate() {
-		dateCreated = new Date();
-	}
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm", timezone = "Europe/Berlin")
+	@Column(nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	Timestamp timestampCreated;
 
 
 	@Override

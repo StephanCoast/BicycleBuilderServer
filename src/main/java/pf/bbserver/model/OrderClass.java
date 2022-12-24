@@ -8,7 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @javax.persistence.Entity
 @Getter @Setter
@@ -20,7 +20,7 @@ public class OrderClass extends EntityWithID {
 	@OneToOne
 	Configuration configuration;
 
-	@JsonBackReference(value="order-customer")
+//	@JsonBackReference(value="order-customer")
 	@ManyToOne @NotNull
 	Customer customer;
 
@@ -32,15 +32,9 @@ public class OrderClass extends EntityWithID {
 	@Column
 	float priceTotal;
 
-	@Temporal(TemporalType.DATE)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Berlin")
-	@Column(nullable = false)
-	Date dateCreated;
-
-	@PrePersist
-	protected void onCreate() {
-		dateCreated = new Date();
-	}
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm", timezone = "Europe/Berlin")
+	@Column(nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	Timestamp timestampCreated;
 
 	@Override
 	public String toString() {

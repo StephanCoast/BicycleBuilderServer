@@ -3,15 +3,13 @@ package pf.bbserver.controller;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import pf.bbserver.model.Configuration;
 import pf.bbserver.repository.ConfigurationRepo;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @RestController
@@ -69,17 +67,48 @@ public class ConfigurationController {
         }
     }
 
+    @PutMapping("/configurations/{id}/writeAccess")
+    public ResponseEntity<String> getWriteAccessConfiguration(@PathVariable("id") int id) {
+        Optional<Configuration> configurationData = configurationRepo.findById(id);
+        if (configurationData.isPresent()) {
+            Configuration _configuration = configurationData.get();
+            // Check if item is currently being edited
+            String authUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+            String writeAccess = _configuration.getWriteAccess();
+            if (writeAccess == null) {
+                _configuration.setWriteAccess(authUserName); // Zugriff setzen
+                Configuration updatedConfig = configurationRepo.save(_configuration);
+                return new ResponseEntity<>("ACCESS GRANTED", HttpStatus.OK);
+            } else if (writeAccess.equals(authUserName)){
+                return new ResponseEntity<>("ACCESS ALREADY GRANTED", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("ACCESS DENIED: Configuration is currently being edited by:" + authUserName, HttpStatus.FORBIDDEN);
+            }
+        } else {
+            return new ResponseEntity<>("NOT FOUND", HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PutMapping("/configurations/{id}")
     public ResponseEntity<Configuration> updateConfiguration(@PathVariable("id") int id, @RequestBody Configuration configuration) {
         Optional<Configuration> configurationData = configurationRepo.findById(id);
 
         if (configurationData.isPresent()) {
-            Configuration updatedConfig = configurationRepo.save(configuration);
-//            Configuration _configuration = configurationData.get();
-//            _configuration.setTitle(tutorial.getTitle());
-//            _configuration.setDescription(tutorial.getDescription());
-//            _configuration.setPublished(tutorial.isPublished());
-            return new ResponseEntity<>(updatedConfig, HttpStatus.OK);
+            Configuration _configuration = configurationData.get();
+
+            // Check if item is currently being edited
+            String authUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+            String writeAccess = _configuration.getWriteAccess();
+            if(writeAccess == null)
+                    writeAccess = ""; // Für equals Vergleich einen leeren String setzen
+
+            if (writeAccess.equals(authUserName)) {
+                    configuration.setWriteAccess(null); // Zugriff wieder freigeben
+                    Configuration updatedConfig = configurationRepo.save(configuration);
+                    return new ResponseEntity<>(updatedConfig, HttpStatus.OK);
+            } else {
+                    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            }
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
