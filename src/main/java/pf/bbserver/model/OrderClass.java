@@ -2,9 +2,9 @@ package pf.bbserver.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,23 +14,25 @@ import java.util.Date;
 @Getter @Setter
 public class OrderClass extends EntityWithID {
 
+
+	@JsonBackReference(value="order-config")
 	@NotNull
 	@OneToOne
-	@JoinColumn
 	Configuration configuration;
 
+	@JsonBackReference(value="order-customer")
 	@ManyToOne @NotNull
 	Customer customer;
+
+	@JsonManagedReference
+	@OneToOne (mappedBy = "order")
+	Bill bill;
 
 	@NotNull
 	@Column
 	float priceTotal;
 
-	@OneToOne
-	Bill bill;
-
-	@CreationTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Berlin")
 	@Column(nullable = false)
 	Date dateCreated;

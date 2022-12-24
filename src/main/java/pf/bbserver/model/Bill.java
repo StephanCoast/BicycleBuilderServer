@@ -1,22 +1,25 @@
 package pf.bbserver.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @javax.persistence.Entity
 @Getter @Setter
 public class Bill extends EntityWithID {
 
+	@JsonBackReference
+	@NotNull
 	@OneToOne
-    OrderClass orderClass;
+	@JoinColumn
+	OrderClass order;
 
-	@CreationTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Berlin")
 	@Column(nullable = false)
 	Date dateCreated;

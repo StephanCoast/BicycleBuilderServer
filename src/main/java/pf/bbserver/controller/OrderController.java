@@ -25,7 +25,7 @@ public class OrderController {
         this.orderRepo = orderRepo;
     }
 
-    @GetMapping
+    @GetMapping("/orders")
     public ResponseEntity<List<OrderClass>> getAllOrders() {
         try {
 
@@ -64,6 +64,7 @@ public class OrderController {
 
             return new ResponseEntity<>(newOrder, responseHeaders, HttpStatus.CREATED);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -74,10 +75,6 @@ public class OrderController {
 
         if (orderData.isPresent()) {
             OrderClass updatedConfig = orderRepo.save(order);
-//            OrderClass _order = orderData.get();
-//            _order.setTitle(tutorial.getTitle());
-//            _order.setDescription(tutorial.getDescription());
-//            _order.setPublished(tutorial.isPublished());
             return new ResponseEntity<>(updatedConfig, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

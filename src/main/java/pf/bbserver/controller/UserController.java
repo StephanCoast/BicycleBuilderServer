@@ -1,20 +1,18 @@
 package pf.bbserver.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pf.bbserver.model.User;
 import pf.bbserver.repository.UserRepo;
 
+import java.net.URI;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -23,18 +21,75 @@ import java.util.stream.StreamSupport;
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired
+    final
     UserRepo userRepo;
 
-    @Autowired
+    final
     BCryptPasswordEncoder bCryptPasswordEncoder;
+    final static String baseURL= "http://localhost:8080/users/";
 
-    // registers a new user
-    @PostMapping
-    public void register(@RequestBody User user) {
-        user.setPasswordHash(bCryptPasswordEncoder.encode(user.getPasswordHash()));
-        userRepo.save(user);
+    public UserController(BCryptPasswordEncoder bCryptPasswordEncoder, UserRepo userRepo) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.userRepo = userRepo;
     }
+
+    @PostMapping
+    public ResponseEntity<User> createUser(@RequestBody User newUser) {
+
+        try {
+            // CHECK IF USER IS AN ADMIN USER
+            String authUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+            User tempUser = userRepo.findByName(authUserName);
+            if(!Objects.equals(tempUser.getRole(), "ADMIN")) {
+                System.out.println("User has no admin rights to create users!");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            }
+
+            newUser.setPasswordHash(bCryptPasswordEncoder.encode(newUser.getPasswordHash()));
+            newUser = userRepo.save(newUser);
+
+            //Return URI somehow necessary for succesful completion of Post task
+            URI location = URI.create(baseURL + newUser.getId());
+            HttpHeaders responseHeaders = new HttpHeaders();
+            responseHeaders.setLocation(location);
+
+            return new ResponseEntity<>(newUser, responseHeaders, HttpStatus.CREATED);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable("id") int id, @RequestBody User user) {
+        // CHECK IF USER IS AN ADMIN USER
+        String authUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+        User tempUser = userRepo.findByName(authUserName);
+        if(!Objects.equals(tempUser.getRole(), "ADMIN")) {
+            System.out.println("User has no admin rights to modify users!");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        Optional<User> userData = userRepo.findById(id);
+        if (userData.isPresent()) {
+            if(user.getPasswordHash() == null) {
+                // Password Hash muss unverändert bleiben, wenn Password nicht geändert wurde.
+                User dbUser = userData.get();
+                user.setPasswordHash(dbUser.getPasswordHash());
+            } else {
+                // Passwort verschlüsseln nach einmalig unverschlüsselter Übertragung
+                user.setPasswordHash(bCryptPasswordEncoder.encode(user.getPasswordHash()));
+            }
+
+            userRepo.save(user);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     // provides only the user names
     @GetMapping

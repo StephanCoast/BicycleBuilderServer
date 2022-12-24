@@ -1,35 +1,29 @@
 package pf.bbserver.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AccessLevel;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
-import static javax.persistence.CascadeType.*;
 
 @javax.persistence.Entity
 @Getter @Setter
 public class Configuration extends EntityWithID {
 
+    @JsonManagedReference(value="order-config")
+    @OneToOne (mappedBy = "configuration")
+    OrderClass order;
 
     @NotEmpty @NotBlank @NotNull
     String status;
 
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Berlin")
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm", timezone = "Europe/Berlin")
     @Column(nullable = false)
     Date dateCreated;
 
@@ -38,9 +32,8 @@ public class Configuration extends EntityWithID {
         dateCreated = dateLastChanged = new Date();
     }
 
-    @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Berlin")
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm", timezone = "Europe/Berlin")
     @Column(nullable = false)
     Date dateLastChanged;
 
@@ -59,7 +52,6 @@ public class Configuration extends EntityWithID {
     User user;
 
     // Set is more efficient than list, Foreign Key On Delete Cascade not the default setting
-    @Setter(AccessLevel.NONE)
     @ManyToMany
     @JoinTable(
             name = "CONFIGURATION_ARTICLES",
@@ -68,9 +60,6 @@ public class Configuration extends EntityWithID {
     )
     Set<Article> articles = new java.util.LinkedHashSet<>();
 
-    public void setDateLastChanged(Date dateLastChanged) {
-        this.dateLastChanged = dateLastChanged;
-    }
 
     @Override
     public String toString() {
