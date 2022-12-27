@@ -33,5 +33,7 @@ INSERT INTO ARTICLE (ID, NAME, TYPE, PRODUCER, DESCRIPTION, CHARACTERISTIC, VALU
 (26,'Level','Bremse','SRAM','2x Scheibenbremse Vorder- und Hinterrad schwarz','Scheibenbremse',0,0,'#000000',89.99),
 (29,'Standit','Extras','Racktime','Gepäckträger 28" schwarz (black) 25kg','Rahmenmontage',28,25,'#000000',52.99),
 (30,'Esge Comp Zoom','Extras','Pletscher','Hinterbauständer 26-28" silber (silver) ','Hinterbauständer',28,18,'#000000',19.99),
-(31,'Selectra','Extras','Busch + Müller','Vorder- und Rücklicht mit Standlichtfunktion nach StVZO','Nabendynamo',20,15,'#000000',49.9);
-
+(31,'Selectra','Extras','Busch + Müller','Vorder- und Rücklicht mit Standlichtfunktion nach StVZO','Nabendynamo',20,15,'#000000',49.9),
+(32,'Dura-Cork Griffe','Griffe','Red Cycling Products','Dura-Cork Griff - Sportliche Griffe aus Naturmaterial','Kork',131,0,'#997348',14.99),
+(33,'GD1','Griffe','Ergon','Das Griffgefühl ist soft, dennoch aber sehr definiert und präzise.','Spezialkunststoff',120,0,'#FFA500',39.95),
+(34,'Plump','Griffe','Brooks','Verstellbare Länge, wiederverwendetes Leder. Für die Ewigkeit gemacht. Minimaler Abfall.','Leder',130,0,'#624a2e',79.95);
