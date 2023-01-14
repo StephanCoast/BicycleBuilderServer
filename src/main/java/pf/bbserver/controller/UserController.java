@@ -64,13 +64,6 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") int id, @RequestBody User user) {
-        // CHECK IF USER IS AN ADMIN USER
-        String authUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-        User tempUser = userRepo.findByName(authUserName);
-        if(!Objects.equals(tempUser.getRole(), "ADMIN")) {
-            System.out.println("User has no admin rights to modify users!");
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
 
         Optional<User> userData = userRepo.findById(id);
         if (userData.isPresent()) {
