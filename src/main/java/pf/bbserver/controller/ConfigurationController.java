@@ -72,6 +72,7 @@ public class ConfigurationController {
         Optional<Configuration> configurationData = configurationRepo.findById(id);
         if (configurationData.isPresent()) {
             Configuration _configuration = configurationData.get();
+
             // Check if item is currently being edited
             String authUserName = SecurityContextHolder.getContext().getAuthentication().getName();
             String writeAccess = _configuration.getWriteAccess();
@@ -87,7 +88,7 @@ public class ConfigurationController {
                 return new ResponseEntity<>("ACCESS DENIED: Configuration is currently being edited by:" + _configuration.getWriteAccess(), HttpStatus.FORBIDDEN);
             }
         } else {
-            return new ResponseEntity<>("NOT FOUND", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("ACCESS GRANTED", HttpStatus.OK);
         }
     }
 
