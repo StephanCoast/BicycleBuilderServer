@@ -68,7 +68,7 @@ public class ConfigurationController {
     }
 
     @PutMapping("/configurations/{id}/writeAccess")
-    public ResponseEntity<String> getWriteAccessConfiguration(@PathVariable("id") int id) {
+    public ResponseEntity<String> switchWriteAccessConfiguration(@PathVariable("id") int id) {
         Optional<Configuration> configurationData = configurationRepo.findById(id);
         if (configurationData.isPresent()) {
             Configuration _configuration = configurationData.get();
@@ -82,7 +82,7 @@ public class ConfigurationController {
             } else if (writeAccess.equals(authUserName)){
                 _configuration.setWriteAccess(null); // Zugriff freigeben
                 Configuration updatedConfig = configurationRepo.save(_configuration);
-                return new ResponseEntity<>("configuration:" + _configuration.getId() + " accessible again.", HttpStatus.OK);
+                return new ResponseEntity<>("ACCESS OPEN FOR:" + _configuration.getId(), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("ACCESS DENIED: Configuration is currently being edited by:" + authUserName, HttpStatus.FORBIDDEN);
             }
@@ -105,7 +105,7 @@ public class ConfigurationController {
                     writeAccess = ""; // Für equals Vergleich einen leeren String setzen
 
             if (writeAccess.equals(authUserName)) {
-                    configuration.setWriteAccess(null); // Zugriff wieder freigeben
+                    //configuration.setWriteAccess(null); // Zugriff wieder freigeben
                     Configuration updatedConfig = configurationRepo.save(configuration);
                     return new ResponseEntity<>(updatedConfig, HttpStatus.OK);
             } else {
