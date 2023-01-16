@@ -82,9 +82,9 @@ public class ConfigurationController {
             } else if (writeAccess.equals(authUserName)){
                 _configuration.setWriteAccess(null); // Zugriff freigeben
                 Configuration updatedConfig = configurationRepo.save(_configuration);
-                return new ResponseEntity<>("ACCESS OPEN FOR:" + _configuration.getId(), HttpStatus.OK);
+                return new ResponseEntity<>("ACCESS OPENED", HttpStatus.OK);
             } else {
-                return new ResponseEntity<>("ACCESS DENIED: Configuration is currently being edited by:" + authUserName, HttpStatus.FORBIDDEN);
+                return new ResponseEntity<>("ACCESS DENIED: Configuration is currently being edited by:" + _configuration.getWriteAccess(), HttpStatus.FORBIDDEN);
             }
         } else {
             return new ResponseEntity<>("NOT FOUND", HttpStatus.NOT_FOUND);
