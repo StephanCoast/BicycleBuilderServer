@@ -10,9 +10,7 @@ import pf.bbserver.model.User;
 import pf.bbserver.repository.UserRepo;
 
 import java.net.URI;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -84,11 +82,28 @@ public class UserController {
     }
 
 
-    // provides only the user names
+    // provides only the usernames
     @GetMapping
     public List<String> getUserNames() {
         Stream<User> users = StreamSupport.stream(userRepo.findAll().spliterator(), false);
         return users.map(User::getName).sorted().collect(Collectors.toList());
+    }
+
+
+    @GetMapping("/data")
+    public ResponseEntity<List<User>> getUsers() {
+        try {
+
+            List<User> users = new ArrayList<>((Collection) userRepo.findAll());
+
+            if (users.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<>(users, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     // provides user details for the registered user

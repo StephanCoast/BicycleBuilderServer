@@ -26,11 +26,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
-
                 .antMatchers(HttpMethod.GET, "/articles/**").permitAll()
 
-                // TODO Remove before production - otherwise everyone can access data
-                .antMatchers(HttpMethod.GET, "/**").permitAll()
+                // Remove before production - otherwise everyone can access data
+                //.antMatchers(HttpMethod.GET, "/**").permitAll()
 
 
                 // if authenticated then allow any request
