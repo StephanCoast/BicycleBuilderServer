@@ -79,11 +79,11 @@ public class ConfigurationController {
             if (writeAccess == null) {
                 _configuration.setWriteAccess(authUserName); // Zugriff setzen
                 Configuration updatedConfig = configurationRepo.save(_configuration);
-                return new ResponseEntity<>("ACCESS GRANTED", HttpStatus.OK);
+                return new ResponseEntity<>("ACCESS GRANTED to " + authUserName, HttpStatus.OK);
             } else if (writeAccess.equals(authUserName)){
                 _configuration.setWriteAccess(null); // Zugriff freigeben
                 Configuration updatedConfig = configurationRepo.save(_configuration);
-                return new ResponseEntity<>("ACCESS OPENED", HttpStatus.OK);
+                return new ResponseEntity<>("ACCESS RETURNED by " + authUserName, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("ACCESS DENIED: Configuration is currently being edited by:" + _configuration.getWriteAccess(), HttpStatus.FORBIDDEN);
             }
