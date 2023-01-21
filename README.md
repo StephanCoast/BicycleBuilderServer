@@ -18,6 +18,8 @@ see pom.xml
 `java -jar bbserver-1.jar`
 5. download and start JavaFX BicycleBuilderClient to access demo dataset
 
+Alternatively you can clone this repo with your favorite IDE and compile the project yourself
+with the help of Maven and the included pom.xml.
 
 ### getting started
 Login into demo database via:
