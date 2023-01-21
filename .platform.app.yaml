@@ -14,7 +14,7 @@ disk: 2048
 
 hooks:
   build:
-    mvn clean package
+    mvn clean install
 
 web:
   commands:
