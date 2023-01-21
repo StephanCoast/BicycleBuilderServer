@@ -1,5 +1,5 @@
 # BicycleBuilder - Server
-Run your BicycleBuilder - Server and access it with multiple clients
+Run your BicycleBuilder - Server and access it with multiple BicycleBuilderClients
 in your bike shops. Customize the bikes of your portfolio.
 
 
