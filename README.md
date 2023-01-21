@@ -1,31 +1,37 @@
 # BicycleBuilder - Server
-Run the REST-API of your BicycleBuilder - Server and access it with multiple clients
+Run your BicycleBuilder - Server and access it with multiple clients
 in your bike shops. Customize the bikes of your portfolio.
 
 
-## Semesterprojekt im Kurs Patterns & Frameworks
+## semester project in the course: Patterns & Frameworks
 TH Brandenburg, Wintersemester 2022/23
 
 ### dependencies
+see pom.xml
 
+### installation - test
 
-### installation
+1. install java19 JRE
+2. navigate in repository to src/test
+3. pick subfolder according to your os
+4. open terminal/cmd and execute the jar file with:
+`java -jar bbserver-1.jar`
+5. download and start JavaFX BicycleBuilderClient to access demo dataset
 
 
 ### getting started
+Login into demo database via:
+
+User: Consultant and PW: osmi
+-> to test consultant functionalities
+
+User: Admin123 and PW: osmi
+-> to test admin functionalities
 
 ### credits
+db and server implementation:
+kosts@th-brandenburg.de
 
-### sound effects
+security:
+de.oncampus.patterns Modulautoren
 
-apple-bite: Found on opengameart.org under CC0 1.0 Universal (CC0 1.0)
-https://opengameart.org/node/132358
-
-### images
-
-apple: Found on opengameart.org under CC by 4.0
-https://opengameart.org/content/apple-3
-Copyright: Dave Newton https://www.devnewton.fr/
-
-banana: Found on opengameart.org under CC0
-https://opengameart.org/content/banana
