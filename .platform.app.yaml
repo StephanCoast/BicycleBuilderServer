@@ -1,0 +1,22 @@
+# The name of this app. Must be unique within a project.
+name: bbServer
+
+# The runtime the application uses. The 'type' key defines the base container
+# image that will be used to run the application. There is a separate base
+# container image for each primary language for the application,
+# in multiple versions. Check the Java documentation
+# (https://docs.platform.sh/languages/java.html#supported-versions)
+# to find the supported versions for the 'java' type.
+type: 'java:19'
+
+# The size of the persistent disk of the application (in MB).
+disk: 2048
+
+hooks:
+  build:
+    mvn clean package
+
+web:
+  commands:
+    start: "java -jar target/bbserver-1.jar --port=8080"
+
